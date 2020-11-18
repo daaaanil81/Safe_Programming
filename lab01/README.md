@@ -38,19 +38,19 @@ Rarjpeg - картинка, склеєна з RAR-архівом (JPEG with embe
 Розмір кінцевого зображення image2.jpg = 995к
 
 2.	Скриття даних у зображення за допомогою методу найменьш значимих бітів (Less Significant Bits)
-![screen of sample](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/image1.png)
+![screen of sample](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/resources/image1.png)
 
 На рис. 2 знаходиться зображення до скриття даних.
 
 
-![screen](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/imageColorBeforeEncoder.png)
+![screen](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/resources/imageColorBeforeEncoder.png)
 
 На рис.3 знаходиться зображення з кольорами пікселей. Кожний колір змінюється якщо молодший біт червоного, або зеленого, або синього кольору має одиницю. Наприклад, якщо в червоному кольору молодший біт встановлений в «1», значення змінюється на 255, аналогічно з усіма іншими кольорами. Потім R, G, B складає колір пікселя.
 
 На рис. 4 зображено результат програми. Програма зберігає текст в фотографію у форматі png, а потім це зображення декодує та отримує з нього текст. 
 
 
-![screen](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/imageColorAfterEncoder.png)
+![screen](https://github.com/daaaanil81/Safe_Programming/blob/master/lab01/resources/imageColorAfterEncoder.png)
 
 
 На рис. 5 зображено картину після зберігання текста. Як можно бачити декілька перших ліній картини змінились після зберігання тексту. Це один із способів перевірити зберігається текст в картині чи ні. Можна побачити систематичне зміннення кольорів.
