@@ -1,0 +1,5 @@
+Hash trees can be used to verify any kind of data stored, handled and transferred in and between computers. They can help ensure that data blocks received from other peers in a peer-to-peer network are received undamaged and unaltered, and even to check that the other peers do not lie and send fake blocks.
+
+Hash trees are used in hash-based cryptography. Hash trees are also used in the IPFS, Btrfs and ZFS file systems[4] (to counter data degradation[5]); Dat protocol; Apache Wave protocol;[6] Git and Mercurial distributed revision control systems; the Tahoe-LAFS backup system; Zeronet; the Bitcoin and Ethereum peer-to-peer networks;[7] the Certificate Transparency framework; and a number of NoSQL systems such as Apache Cassandra, Riak, and Dynamo.[8] Suggestions have been made to use hash trees in trusted computing systems.[9]
+
+The initial Bitcoin implementation of Merkle trees by Satoshi Nakamoto applies the compression step of the hash function to an excessive degree, which is mitigated by using Fast Merkle Trees.[10]
