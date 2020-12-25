@@ -1,0 +1,183 @@
+grammar CPP14;
+
+
+/*Basic concepts*/
+translationunit
+:
+	declarationseq? EOF
+;
+
+/*Expressions*/
+primaryexpression
+:
+	literal
+	| This
+	| '(' expression ')'
+	| idexpression
+	| lambdaexpression
+;
+
+idexpression
+:
+	unqualifiedid
+	| qualifiedid
+;
+
+relationalexpression
+:
+	shiftexpression
+	| relationalexpression '<' shiftexpression
+	| relationalexpression '>' shiftexpression
+	| relationalexpression '<=' shiftexpression
+	| relationalexpression '>=' shiftexpression
+;
+
+equalityexpression
+:
+	relationalexpression
+	| equalityexpression '==' relationalexpression
+	| equalityexpression '!=' relationalexpression
+;
+
+andexpression
+:
+	equalityexpression
+	| andexpression '&' equalityexpression
+;
+
+exclusiveorexpression
+:
+	andexpression
+	| exclusiveorexpression '^' andexpression
+;
+
+inclusiveorexpression
+:
+	exclusiveorexpression
+	| inclusiveorexpression '|' exclusiveorexpression
+;
+
+logicalandexpression
+:
+	inclusiveorexpression
+	| logicalandexpression '&&' inclusiveorexpression
+;
+
+logicalorexpression
+:
+	logicalandexpression
+	| logicalorexpression '||' logicalandexpression
+;
+
+conditionalexpression
+:
+	logicalorexpression
+	| logicalorexpression '?' expression ':' assignmentexpression
+;
+
+assignmentexpression
+:
+	conditionalexpression
+	| logicalorexpression assignmentoperator initializerclause
+	| throwexpression
+;
+
+
+expression
+:
+	assignmentexpression
+	| expression ',' assignmentexpression
+;
+
+constantexpression
+:
+	conditionalexpression
+;
+/*Statements*/
+statement
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+
+labeledstatement
+:
+	attributespecifierseq? Identifier ':' statement
+	| attributespecifierseq? Case constantexpression ':' statement
+	| attributespecifierseq? Default ':' statement
+;
+
+expressionstatement
+:
+	expression? ';'
+;
+
+compoundstatement
+:
+	'{' statementseq? '}'
+;
+
+statementseq
+:
+	statement
+	| statementseq statement
+;
+
+selectionstatement
+:
+	If '(' condition ')' statement
+	| If '(' condition ')' statement Else statement
+	| Switch '(' condition ')' statement
+;
+
+condition
+:
+	expression
+	| attributespecifierseq? declspecifierseq declarator '=' initializerclause
+	| attributespecifierseq? declspecifierseq declarator bracedinitlist
+;
+
+iterationstatement
+:
+	While '(' condition ')' statement
+	| Do statement While '(' expression ')' ';'
+	| For '(' forinitstatement condition? ';' expression? ')' statement
+	| For '(' forrangedeclaration ':' forrangeinitializer ')' statement
+;
+
+forinitstatement
+:
+	expressionstatement
+	| simpledeclaration
+;
+
+forrangedeclaration
+:
+	attributespecifierseq? declspecifierseq declarator
+;
+
+forrangeinitializer
+:
+	expression
+	| bracedinitlist
+;
+
+jumpstatement
+:
+	Break ';'
+	| Continue ';'
+	| Return expression? ';'
+	| Return bracedinitlist ';'
+	| Goto Identifier ';'
+;
+
+declarationstatement
+:
+	blockdeclaration
+;

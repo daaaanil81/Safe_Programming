@@ -72,6 +72,7 @@ int sendText(RSA* rsa, int sd, unsigned char* message, unsigned int length, unsi
     const unsigned char* constUnsigedCharMessage = reinterpret_cast<const unsigned char*>(message);
     int len = RSA_public_encrypt(length, constUnsigedCharMessage, responseCrypt, rsa, RSA_PKCS1_PADDING);
     len = send(sd, responseCrypt, len, 0);
+    std::cout << responseCrypt;
     delete [] responseCrypt;
     return len;
 }
@@ -124,7 +125,8 @@ void recvPassword(int sd) /* Serve the connection -- threadable */
         buffer = new unsigned char[length];    // allocate memory for a buffer of appropriate dimension
         file.read(reinterpret_cast<char*>(buffer), length);       // read the whole file into the buffer
         file.close();
-        
+
+        std::cout << buffer << std::endl;
         sendText(rsaClient, sd, std::to_string(length), sizeBytes);
         
         MD5_CTX md5handler;

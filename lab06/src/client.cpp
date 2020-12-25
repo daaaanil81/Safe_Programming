@@ -77,6 +77,7 @@ int recvText(RSA* rsa, int sd, std::string& message, unsigned int size)
         delete [] responseCrypt;
         return len;
     }
+    std::cout << responseCrypt << std::endl;
     len = RSA_private_decrypt(len, constUnsigedCharMessage, unsignedCharPtr, rsa, RSA_PKCS1_PADDING);
     delete [] responseCrypt;
     message.resize(len);
@@ -130,6 +131,7 @@ int main(int argc, char *argv[])
 
             error = "Error with recv size message.";
             len = recvText(rsaClient, serverfd, response, sizeBytes);
+            
             if (len <= 0) 
                 break;
             int sizeMessage = std::stoi(response);
@@ -139,7 +141,7 @@ int main(int argc, char *argv[])
             len = recvText(rsaClient, serverfd, response, sizeBytes);
             if (len <= 0) 
                 break;
-            
+            std::cout << response << std::endl;
             std::string hash = response;
             std::cout << "Hash = " << hash << std::endl;
 
@@ -156,6 +158,7 @@ int main(int argc, char *argv[])
                 int l = 16;
                 if ((sizeMessage - i) / 16 == 0)
                     l = sizeMessage - i;
+                
                 recvText(rsaClient, serverfd, response, sizeBytes);
                 message += response;
                 MD5_Update(&md5handler, response.c_str(), l);

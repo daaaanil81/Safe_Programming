@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+}
+
+group 'keys'
+version '1.0'
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src']
+		}
+	}
+}
+
+configurations {
+	embed
+	compile.extendsFrom(embed)
+}
+
+dependencies {
+	// embed 'org.ow2.asm:asm:9.0'
+}
+
+jar {
+	from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+	
+	manifest {
+		attributes 'Main-Class': 'keys.MakeKey'
+	}
+}
